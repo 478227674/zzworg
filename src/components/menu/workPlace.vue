@@ -1,5 +1,5 @@
 <template>
-    <p>欢迎登录质正网管理后台</p>
+    <p>欢迎登录元儒网管理后台</p>
 </template>
 
 <script>

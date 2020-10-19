@@ -16,6 +16,7 @@
     "axios": "^0.17.1",
     "qrcodejs2": "0.0.2",
     "vue": "^2.5.2",
+    "vue-baidu-map": "^0.21.22",
     "vue-quill-editor": "^3.0.6",
     "vue-quill-editor-upload": "^1.1.0",
     "vue-router": "^3.0.1",

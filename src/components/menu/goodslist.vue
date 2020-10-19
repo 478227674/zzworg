@@ -56,7 +56,7 @@
           <el-button @click="handleClick(scope)" type="text" size="small">删除</el-button>
               <el-button @click="editGoods(scope)" type="text" size="small">编辑</el-button>
           <!--<el-button @click="seeProductClass(scope)" type="text" size="small">查看课时</el-button>-->
-          <el-button @click="seeProductStage(scope)" type="text" size="small">查看阶段</el-button>
+<!--          <el-button @click="seeProductStage(scope)" type="text" size="small">查看阶段</el-button>-->
           <!--<el-button type="text" size="small">编辑</el-button>-->
         </template>
       </el-table-column>
@@ -83,60 +83,60 @@
         </el-form-item>
 
         <el-form-item
-          label="课程分类"
+          label="所属项目"
           :label-width="formLabelWidth"
           prop="sortList"
         >
           <template>
-            <el-cascader
-              :options="typeList"
-              v-model="form.sortList"
-              :props="cascaderObj"
-            >
-            </el-cascader>
+            <el-select v-model="form.sortId" placeholder="所属项目" >
+              <el-option
+                v-for="item in typeList"
+                :key="item.sort_three"
+                :label="item.threeName"
+                :value="item.sort_three"
+              >
+              </el-option>
+            </el-select>
+<!--            <el-cascader-->
+<!--              :options="typeList"-->
+<!--              v-model="form.sortList"-->
+<!--              :props="cascaderObj"-->
+<!--            >-->
+<!--            </el-cascader>-->
           </template>
         </el-form-item>
-        <el-form-item label="所属班次" :label-width="formLabelWidth">
-          <el-select v-model="form.alClassId" placeholder="请选择所属班次" >
-            <el-option
-              v-for="item in classList"
-              :key="item.classId"
-              :label="item.className"
-              :value="item.classId"
-            >
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="课程权限" :label-width="formLabelWidth">
-          <el-select v-model="form.memberIds" @change="selectChange" multiple placeholder="请选择">
-            <el-option
-              v-for="item in authList"
-              :key="item.memberId"
-              :label="item.memberName"
-              :value="item.memberId">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="所属学科" :label-width="formLabelWidth">
-          <el-select v-model="form.subjectIds"  @change="selectChange" multiple placeholder="请选择">
-            <el-option
-              v-for="item in subjectList"
-              :key="item.subjectId"
-              :label="item.subjectName"
-              :value="item.subjectId">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="绑定销售包" :label-width="formLabelWidth">
-          <el-select v-model="form.alSaleId" placeholder="请选择">
-            <el-option
-              v-for="(item,index) in aiList"
-              :key="index"
-              :label="item.saleName"
-              :value="item.alSaleId">
-            </el-option>
-          </el-select>
-        </el-form-item>
+<!--        <el-form-item label="所属班次" :label-width="formLabelWidth">-->
+<!--          <el-select v-model="form.alClassId" placeholder="请选择所属班次" >-->
+<!--            <el-option-->
+<!--              v-for="item in classList"-->
+<!--              :key="item.classId"-->
+<!--              :label="item.className"-->
+<!--              :value="item.classId"-->
+<!--            >-->
+<!--            </el-option>-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="课程权限" :label-width="formLabelWidth">-->
+<!--          <el-select v-model="form.memberIds" @change="selectChange" multiple placeholder="请选择">-->
+<!--            <el-option-->
+<!--              v-for="item in authList"-->
+<!--              :key="item.memberId"-->
+<!--              :label="item.memberName"-->
+<!--              :value="item.memberId">-->
+<!--            </el-option>-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="所属学科" :label-width="formLabelWidth">-->
+<!--          <el-select v-model="form.subjectIds"  @change="selectChange" multiple placeholder="请选择">-->
+<!--            <el-option-->
+<!--              v-for="item in subjectList"-->
+<!--              :key="item.subjectId"-->
+<!--              :label="item.subjectName"-->
+<!--              :value="item.subjectId">-->
+<!--            </el-option>-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
+
         <el-form-item
           label="课程简单描述"
           :label-width="formLabelWidth"
@@ -189,47 +189,47 @@
             <img width="100%" :src="dialogImageUrl" alt="">
           </el-dialog>
         </el-form-item>
+
         <el-form-item label="是否优惠" :label-width="formLabelWidth">
           <template>
             <el-radio v-model="form.is_discount" label="1" >是</el-radio>
             <el-radio v-model="form.is_discount" label="0" >否</el-radio>
           </template>
         </el-form-item>
-        <el-form-item label="是否给予佣金" :label-width="formLabelWidth">
-          <template>
-            <el-radio v-model="form.isCommission" label="1" >是</el-radio>
-            <el-radio v-model="form.isCommission" label="0" >否</el-radio>
-          </template>
-        </el-form-item>
-        <el-form-item
-          label="佣金金额"
-          :label-width="formLabelWidth"
-          prop="commissionRebate"
-          v-show="form.isCommission==1"
-        >
-          <el-input oninput = "value=value.replace(/[^\d.]/g,'')"  v-model.string="form.commissionRebate" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="是否可使用质正币" :label-width="formLabelWidth">
-          <template>
-            <el-radio v-model="form.isCoin" checked label="1">是</el-radio>
-            <el-radio v-model="form.isCoin" label="0">否</el-radio>
-          </template>
-        </el-form-item>
-        <el-form-item
-          label="质正币上限"
-          :label-width="formLabelWidth"
-          prop="coinLimit"
-          v-show="form.isCoin==1"
-        >
-          <el-input v-model.string="form.coinLimit" auto-complete="off"></el-input>
-        </el-form-item>
-<!--        <el-form-item label="是否可使用优惠券" :label-width="formLabelWidth">-->
+<!--        <el-form-item label="是否给予佣金" :label-width="formLabelWidth">-->
 <!--          <template>-->
-<!--            <el-radio v-model="form.isCoupon" checked label="1">是</el-radio>-->
-<!--            <el-radio v-model="form.isCoupon" label="0">否</el-radio>-->
+<!--            <el-radio v-model="form.isCommission" label="1" >是</el-radio>-->
+<!--            <el-radio v-model="form.isCommission" label="0" >否</el-radio>-->
 <!--          </template>-->
 <!--        </el-form-item>-->
-
+<!--        <el-form-item-->
+<!--          label="佣金金额"-->
+<!--          :label-width="formLabelWidth"-->
+<!--          prop="commissionRebate"-->
+<!--          v-show="form.isCommission==1"-->
+<!--        >-->
+<!--          <el-input oninput = "value=value.replace(/[^\d.]/g,'')"  v-model.string="form.commissionRebate" auto-complete="off"></el-input>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="是否可使用元儒币" :label-width="formLabelWidth">-->
+<!--          <template>-->
+<!--            <el-radio v-model="form.isCoin" checked label="1">是</el-radio>-->
+<!--            <el-radio v-model="form.isCoin" label="0">否</el-radio>-->
+<!--          </template>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item-->
+<!--          label="元儒币上限"-->
+<!--          :label-width="formLabelWidth"-->
+<!--          prop="coinLimit"-->
+<!--          v-show="form.isCoin==1"-->
+<!--        >-->
+<!--          <el-input v-model.string="form.coinLimit" auto-complete="off"></el-input>-->
+<!--        </el-form-item>-->
+        <el-form-item label="是否可使用优惠券" :label-width="formLabelWidth">
+          <template>
+            <el-radio v-model="form.isCoupon" checked label="1">是</el-radio>
+            <el-radio v-model="form.isCoupon" label="0">否</el-radio>
+          </template>
+        </el-form-item>
         <el-form-item
           label="购买次数"
           :label-width="formLabelWidth"
@@ -312,7 +312,6 @@
             inactive-color="#dcdfe6">
           </el-switch>
         </el-form-item>
-
       </el-form>
 
       <div slot="footer" class="dialog-footer">
@@ -341,35 +340,38 @@
           prop="sortList"
         >
           <template>
-            <el-cascader
-              :options="typeList"
-              v-model="editForm.sortList"
-              :props="cascaderObj"
-            >
-            </el-cascader>
+            <el-select v-model="editForm.sortId" placeholder="请选择课程分类" >
+              <el-option
+                v-for="item in typeList"
+                :key="item.sort_three"
+                :label="item.threeName"
+                :value="item.sort_three"
+              >
+              </el-option>
+            </el-select>
           </template>
         </el-form-item>
-        <el-form-item label="所属班次" :label-width="formLabelWidth">
-          <el-select v-model="editForm.alClassId" placeholder="请选择所属班次" >
-            <el-option
-              v-for="item in classList"
-              :key="item.classId"
-              :label="item.className"
-              :value="item.classId"
-            >
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="课程权限" :label-width="formLabelWidth">
-          <el-select v-model="editForm.memberIds" @change="selectChange" multiple placeholder="请选择">
-            <el-option
-              v-for="item in authList"
-              :key="item.memberId"
-              :label="item.memberName"
-              :value="item.memberId">
-            </el-option>
-          </el-select>
-        </el-form-item>
+<!--        <el-form-item label="所属班次" :label-width="formLabelWidth">-->
+<!--          <el-select v-model="editForm.alClassId" placeholder="请选择所属班次" >-->
+<!--            <el-option-->
+<!--              v-for="item in classList"-->
+<!--              :key="item.classId"-->
+<!--              :label="item.className"-->
+<!--              :value="item.classId"-->
+<!--            >-->
+<!--            </el-option>-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="课程权限" :label-width="formLabelWidth">-->
+<!--          <el-select v-model="editForm.memberIds" @change="selectChange" multiple placeholder="请选择">-->
+<!--            <el-option-->
+<!--              v-for="item in authList"-->
+<!--              :key="item.memberId"-->
+<!--              :label="item.memberName"-->
+<!--              :value="item.memberId">-->
+<!--            </el-option>-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
         <el-form-item label="所属学科" :label-width="formLabelWidth">
           <el-select v-model="editForm.productSale.subjectIds" @change="selectChange" multiple placeholder="请选择">
             <el-option
@@ -441,41 +443,40 @@
             <el-radio v-model="editForm.is_discount" label="0" >否</el-radio>
           </template>
         </el-form-item>
-        <el-form-item label="是否给予佣金" :label-width="formLabelWidth">
-          <template>
-            <el-radio v-model="editForm.isCommission" label="1" >是</el-radio>
-            <el-radio v-model="editForm.isCommission" label="0" >否</el-radio>
-          </template>
-        </el-form-item>
-        <el-form-item
-          label="佣金金额"
-          :label-width="formLabelWidth"
-          prop="commissionRebate"
-          v-show="editForm.isCommission==1"
-        >
-          <el-input oninput = "value=value.replace(/[^\d.]/g,'')"  v-model.string="editForm.commissionRebate" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="是否可使用质正币" :label-width="formLabelWidth">
-          <template>
-            <el-radio v-model="editForm.isCoin" label="1">是</el-radio>
-            <el-radio v-model="editForm.isCoin" label="0">否</el-radio>
-          </template>
-        </el-form-item>
-        <el-form-item
-          label="质正币上限"
-          :label-width="formLabelWidth"
-          prop="coinLimit"
-          v-show="editForm.isCoin==1"
-        >
-          <el-input v-model.string="editForm.coinLimit" auto-complete="off"></el-input>
-        </el-form-item>
-<!--        <el-form-item label="是否可使用优惠券" :label-width="formLabelWidth">-->
+<!--        <el-form-item label="是否给予佣金" :label-width="formLabelWidth">-->
 <!--          <template>-->
-<!--            <el-radio v-model="editForm.isCoupon" label="1">是</el-radio>-->
-<!--            <el-radio v-model="editForm.isCoupon" label="0">否</el-radio>-->
+<!--            <el-radio v-model="editForm.isCommission" label="1" >是</el-radio>-->
+<!--            <el-radio v-model="editForm.isCommission" label="0" >否</el-radio>-->
 <!--          </template>-->
 <!--        </el-form-item>-->
-
+<!--        <el-form-item-->
+<!--          label="佣金金额"-->
+<!--          :label-width="formLabelWidth"-->
+<!--          prop="commissionRebate"-->
+<!--          v-show="editForm.isCommission==1"-->
+<!--        >-->
+<!--          <el-input oninput = "value=value.replace(/[^\d.]/g,'')"  v-model.string="editForm.commissionRebate" auto-complete="off"></el-input>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="是否可使用元儒币" :label-width="formLabelWidth">-->
+<!--          <template>-->
+<!--            <el-radio v-model="editForm.isCoin" label="1">是</el-radio>-->
+<!--            <el-radio v-model="editForm.isCoin" label="0">否</el-radio>-->
+<!--          </template>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item-->
+<!--          label="元儒币上限"-->
+<!--          :label-width="formLabelWidth"-->
+<!--          prop="coinLimit"-->
+<!--          v-show="editForm.isCoin==1"-->
+<!--        >-->
+<!--          <el-input v-model.string="editForm.coinLimit" auto-complete="off"></el-input>-->
+<!--        </el-form-item>-->
+        <el-form-item label="是否可使用优惠券" :label-width="formLabelWidth">
+          <template>
+            <el-radio v-model="editForm.isCoupon" label="1">是</el-radio>
+            <el-radio v-model="editForm.isCoupon" label="0">否</el-radio>
+          </template>
+        </el-form-item>
         <el-form-item
           label="购买次数"
           :label-width="formLabelWidth"
@@ -641,7 +642,7 @@
           alSaleId:null,
           is_discount:'0',
           onLive:null,
-          memberIds:[],
+          memberIds:[4],
           subjectIds:[],
           productName: '',
           productDesc:'',
@@ -655,7 +656,7 @@
           imgList:[],
           imageList:[],
           coinLimit:'',
-          sortList:[],
+          sortId:[],
           productIntro:'',//简单描述
           isCommission:'0',
           commissionRebate:'',
@@ -693,7 +694,7 @@
         editForm:{
           is_discount:'',
           onLive:true,
-          memberIds:[],
+          memberIds:[4],
           productSale:{
             subjectIds:[],
           },
@@ -710,7 +711,6 @@
           imageList:[],
           coinLimit:'',
           isShelves:null,//上下架 1商家 2下架
-          sortList:[],
           productIntro:'',//简单描述
           orgId:JSON.parse(localStorage.getItem('userinfo')).id,
         },
@@ -756,6 +756,7 @@
       this.initPageData();
     },
     methods:{
+
       //搜索产品
       searchProductByType(){
 
@@ -795,9 +796,12 @@
         this.$refs.child.$emit('seeVideos',data.row) // 方法1:触发监听事件
       },
       getClassTypeList(){
-        this.http.post('/orgProduct/queryProductSort',{}).then(res=>{
+        this.http.post('/orgInfo/queryOrgSortSearchByOrgId',{orgId:this.orgId}).then(res=>{
           if(res.code == 0){
             this.typeList = res.data;
+          }
+          if(res.data.length == 0 || res.code != 0){
+            alert('课程分类在管理员设置营业范围')
           }
         })
       },
@@ -894,6 +898,7 @@
       addProductFn(){
         this.dialogFormVisible = true
         this.guigeList = [];
+        this.getClassTypeList();
       },
       handleSizeChange(val) {
         //${val} 是当前每页多少条
@@ -964,12 +969,8 @@
           return;
         }
 
-        if(this.form.sortList.length<2){
+        if(!this.form.sortId){
           this.$errorMessage('请选择课程分类')
-          return;
-        }
-        if(!this.form.alClassId){
-          this.$errorMessage('请选择所属班次')
           return;
         }
         if(!this.form.productIntro ){
@@ -996,7 +997,7 @@
         }
         if(this.form.isCoin == 1){
             if(this.form.coinLimit%10 != 0 ){
-              this.$errorMessage('质正币上限数额必须是10的倍数')
+              this.$errorMessage('元儒币上限数额必须是10的倍数')
               return;
             }
         }
@@ -1035,14 +1036,11 @@
           this.$errorMessage('请填写课程标题')
           return;
         }
-        if(this.editForm.sortList.length<2){
+        if(!this.editForm.sortId){
           this.$errorMessage('请选择课程分类')
           return;
         }
-        if(!this.editForm.alClassId){
-          this.$errorMessage('请选择所属班次')
-          return;
-        }
+
         if(!this.editForm.productIntro ){
           this.$errorMessage('请填写课程简单描述')
           return;
@@ -1061,7 +1059,7 @@
         }
         if(this.editForm.isCoin == 1){
           if(this.editForm.coinLimit%10 != 0 ){
-            this.$errorMessage('质正币上限数额必须是10的倍数')
+            this.$errorMessage('元儒币上限数额必须是10的倍数')
             return;
           }
         }
@@ -1114,7 +1112,7 @@
             Object.assign(obj,res.data)
             this.editForm = obj;
             this.$set(_this.editForm,'isCoin', res.data.productDetail.isCoin.toString())
-            // this.$set(_this.editForm,'isCoupon', res.data.productDetail.isCoupon.toString())
+            this.$set(_this.editForm,'isCoupon', res.data.productDetail.isCoupon.toString())
             this.$set(_this.editForm,'isCommission', res.data.productDetail.isCommission.toString())
             this.editForm.productImage = res.data.attachment.attachmentId;
             this.editForm.productImg = res.data.attachment.fileUrl;
@@ -1125,7 +1123,7 @@
             if(res.data.productDetail.isCommission == 1){
               this.editForm.commissionRebate = res.data.productDetail.commissionRebate;
             }
-            this.editForm.sortList =  JSON.parse(res.data.sortList);
+            this.editForm.sortId =  res.data.sortId;
             this.editForm.isShelves = res.data.isShelves == 0 ? false : true;
             this.editForm.onLive = res.data.onLive == 0 ? false : true;
             this.guigeList = res.data.rules;
@@ -1145,9 +1143,9 @@
                 url:res.data.imageList[i].attachment.fileUrl
               })
             }
-            var memberIds = res.data.productSale.memberIds || [];
+            // var memberIds = res.data.productSale.memberIds || [];
             var subjectIds = JSON.parse(res.data.productSale.subjectIds) || [];
-            _this.editForm.memberIds = memberIds
+            // _this.editForm.memberIds = memberIds
             _this.editForm.productSale.subjectIds = subjectIds
           }
         })

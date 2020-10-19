@@ -60,7 +60,7 @@
         width="100">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope)" type="text" size="small">删除</el-button>
-          <el-button @click="seeProductStage(scope)" type="text" size="small">查看阶段</el-button>
+<!--          <el-button @click="seeProductStage(scope)" type="text" size="small">查看阶段</el-button>-->
           <!--<el-button @click="editGoods(scope)" type="text" size="small">编辑</el-button>-->
           <!--<el-button type="text" size="small">编辑</el-button>-->
         </template>
@@ -91,7 +91,7 @@
         </el-form-item>
 
         <el-form-item
-          label="课程分类"
+          label="所属项目"
           :label-width="formLabelWidth"
           prop="sortList"
         >
@@ -104,17 +104,17 @@
             </el-cascader>
           </template>
         </el-form-item>
-        <el-form-item label="所属班次" :label-width="formLabelWidth">
-          <el-select v-model="form.alClassId" placeholder="请选择所属班次" >
-            <el-option
-              v-for="item in classList"
-              :key="item.className"
-              :label="item.className"
-              :value="item.classId"
-            >
-            </el-option>
-          </el-select>
-        </el-form-item>
+<!--        <el-form-item label="所属班次" :label-width="formLabelWidth">-->
+<!--          <el-select v-model="form.alClassId" placeholder="请选择所属班次" >-->
+<!--            <el-option-->
+<!--              v-for="item in classList"-->
+<!--              :key="item.className"-->
+<!--              :label="item.className"-->
+<!--              :value="item.classId"-->
+<!--            >-->
+<!--            </el-option>-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
         <el-form-item label="课程权限" :label-width="formLabelWidth">
           <el-select v-model="form.authType" multiple placeholder="请选择">
             <el-option
@@ -125,26 +125,16 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="所属学科" :label-width="formLabelWidth">
-          <el-select v-model="form.subjectIds" multiple placeholder="请选择">
-            <el-option
-              v-for="item in subjectList"
-              :key="item.subjectId"
-              :label="item.subjectName"
-              :value="item.subjectId">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="绑定销售包" :label-width="formLabelWidth">
-          <el-select v-model="form.alSaleId" placeholder="请选择">
-            <el-option
-              v-for="(item,index) in aiList"
-              :key="index"
-              :label="item.saleName"
-              :value="item.alSaleId">
-            </el-option>
-          </el-select>
-        </el-form-item>
+<!--        <el-form-item label="所属学科" :label-width="formLabelWidth">-->
+<!--          <el-select v-model="form.subjectIds" multiple placeholder="请选择">-->
+<!--            <el-option-->
+<!--              v-for="item in subjectList"-->
+<!--              :key="item.subjectId"-->
+<!--              :label="item.subjectName"-->
+<!--              :value="item.subjectId">-->
+<!--            </el-option>-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
         <el-form-item
           label="课程简单描述"
           :label-width="formLabelWidth"

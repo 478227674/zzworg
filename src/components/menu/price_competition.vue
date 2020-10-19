@@ -7,10 +7,10 @@
       机构竞价推荐
     </el-button>
     <el-button @click="addMoneyFlag" style="float: left;margin-bottom: 10px;" icon="el-icon-circle-check-outline">
-      充值质正币
+      充值元儒币
     </el-button>
     <el-button  style="float: left;margin-bottom: 10px;" icon="el-icon-view">
-      质正币余额：{{zzbTotal}}
+      元儒币余额：{{zzbTotal}}
     </el-button>
     <div style="display: block;clear: both;text-align: left;line-height: 20px;font-size: 16px;color:red;margin-bottom: 10px;">
       此竞价用于首页机构或者产品推荐以及栏目排名竞价，每日早上10点结束。结果保持一天时间。
@@ -72,7 +72,7 @@
           :total="moneytotal">
         </el-pagination>
       </el-tab-pane>
-      <el-tab-pane label="质正币充值记录" name="second">
+      <el-tab-pane label="元儒币充值记录" name="second">
 
         <el-table
           :data="chongzhiList"
@@ -84,7 +84,7 @@
           </el-table-column>
           <el-table-column
             prop="coinNum"
-            label="充值质正币数量"
+            label="充值元儒币数量"
             width="180"
             align="center">
           </el-table-column>
@@ -124,7 +124,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="竞价金额(质正币)" :label-width="formLabelWidth">
+        <el-form-item label="竞价金额(元儒币)" :label-width="formLabelWidth">
           <el-input v-model="form.bidCoin" placeholder="请输入竞价金额"  auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -138,7 +138,7 @@
     </el-dialog>
     <el-dialog title="产品竞价推荐" :visible.sync="dialogOrgVisible">
       <el-form :model="orgform">
-        <el-form-item label="竞价金额(质正币)" :label-width="formLabelWidth">
+        <el-form-item label="竞价金额(元儒币)" :label-width="formLabelWidth">
           <el-input v-model="orgform.bidCoin" placeholder="请输入竞价金额"  auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -153,10 +153,10 @@
 
 
     <!--dialog添加-->
-    <el-dialog title="充值质正币" :visible.sync="addFlag">
-      <div style="text-align: center;font-size: 18px;margin-bottom: 20px">1RMB兑换1000质正币</div>
+    <el-dialog title="充值元儒币" :visible.sync="addFlag">
+      <div style="text-align: center;font-size: 18px;margin-bottom: 20px">1RMB兑换1000元儒币</div>
       <el-form :model="addForm">
-        <el-form-item label="充值金额(质正币)" :label-width="formLabelWidth">
+        <el-form-item label="充值金额(元儒币)" :label-width="formLabelWidth">
           <el-input v-model="addForm.coinNum" placeholder="请输入充值金额"  auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -249,7 +249,7 @@
       //申请机构竞价
       submitDataOrg(){
         if(!this.orgform.bidCoin || this.orgform.bidCoin<1){
-          this.$errorMessage('请填写竞价质正币数额')
+          this.$errorMessage('请填写竞价元儒币数额')
           return;
         }
         this.orgform.orgId = this.orgId;
@@ -302,7 +302,7 @@
           }
         })
       },
-      //获取质正币总额
+      //获取元儒币总额
       getOrnCoinCount(){
         this.http.post('/orgInfo/queryOrgCoin',{orgId:this.orgId}).then(res=>{
           if(res.code == 0){
@@ -332,7 +332,7 @@
           return;
         }
         if(!this.form.bidCoin){
-          this.$errorMessage('请填写竞价质正币数额')
+          this.$errorMessage('请填写竞价元儒币数额')
           return;
         }
         this.form.orgId = this.orgId;

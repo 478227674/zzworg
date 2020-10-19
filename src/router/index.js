@@ -60,6 +60,11 @@ export default new Router({
             component: resolve => require(['@/components/menu/orderlist'], resolve),
             name: '订单列表'
           },
+          {
+            path: 'newslist',
+            component: resolve => require(['@/components/menu/news/newslist'], resolve),
+            name: '资讯管理'
+          },
         {
           path: 'goodsactive',
           component: resolve => require(['@/components/menu/goodsactive'], resolve),
@@ -144,6 +149,31 @@ export default new Router({
             path: 'videos',
             component: resolve => require(['@/components/menu/videos/videos'], resolve),
             name: '阶段管理'
+          },
+          {
+            path: 'schooltypes',
+            component: resolve => require(['@/components/menu/sys/schooltypes'], resolve),
+            name: '营业范围'
+          },
+          {
+            path: 'procollect',
+            component: resolve => require(['@/components/menu/sys/procollect'], resolve),
+            name: '查看课程收藏'
+          },
+          {
+            path: 'orgcollect',
+            component: resolve => require(['@/components/menu/sys/orgcollect'], resolve),
+            name: '查看机构收藏'
+          },
+          {
+            path: 'audtionuser',
+            component: resolve => require(['@/components/menu/sys/audtionuser'], resolve),
+            name: '预约试听列表'
+          },
+          {
+            path: 'ordersys',
+            component: resolve => require(['@/components/menu/sys/ordersys'], resolve),
+            name: '订单系统'
           },
       ]
     }

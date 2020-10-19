@@ -181,6 +181,7 @@
   import 'quill/dist/quill.snow.css';
   import 'quill/dist/quill.bubble.css';
   import citydata from '../../api/city.data'
+  import { MP } from './map.js'
   const toolbarOptions = [
     ["bold", "italic", "underline", "strike"], // 加粗 斜体 下划线 删除线
     ["blockquote", "code-block"], // 引用  代码块
@@ -254,8 +255,6 @@
         cityId:null,
         areaList:[],
         areaId:'',
-
-
       }
     },
     components: {
@@ -264,26 +263,32 @@
     },
     mounted:function(){
 
+      this.$nextTick(() => {
+        const _this = this
+        MP(_this.ak).then(BMap => {
+          setTimeout(()=>{
+            let _this = this;
+            //选择校区机构的地图
+            let map = new BMap.Map(this.$refs.allmap); // 创建Map实例
+            map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);// 初始化地图,设置中心点坐标和地图级别
+            map.addEventListener("click",function(e){
+              _this.lng = e.point.lng;
+              _this.lat = e.point.lat;
+            });
+            map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
 
-      let _this = this;
-      //选择校区机构的地图
-      let map =new BMap.Map(this.$refs.allmap); // 创建Map实例
-      map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);// 初始化地图,设置中心点坐标和地图级别
-      map.addEventListener("click",function(e){
-        _this.lng = e.point.lng;
-        _this.lat = e.point.lat;
-      });
-      map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
 
-
-      //选择机构地址的地图
-      let map1 =new BMap.Map(this.$refs.allmap1); // 创建Map实例
-      map1.centerAndZoom(new BMap.Point(116.404, 39.915), 11);// 初始化地图,设置中心点坐标和地图级别
-      map1.addEventListener("click",function(e){
-        _this.form.orgLongitude = e.point.lng;
-        _this.form.orgLatitude = e.point.lat;
-      });
-      map1.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+            //选择机构地址的地图
+            let map1 =new BMap.Map(this.$refs.allmap1); // 创建Map实例
+            map1.centerAndZoom(new BMap.Point(116.404, 39.915), 11);// 初始化地图,设置中心点坐标和地图级别
+            map1.addEventListener("click",function(e){
+              _this.form.orgLongitude = e.point.lng;
+              _this.form.orgLatitude = e.point.lat;
+            });
+            map1.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+          },1000)
+        })
+      })
     },
     created:function () {
       this.provinceList = citydata; //把城市列表放入vue实例化中
@@ -322,7 +327,7 @@
             let qrcode = new QRCode('qrcode', {
               width: 124,
               height: 124,        // 高度
-              text: configUrl.wxUrl+'html/organ_detail.html?id='+JSON.parse(localStorage.getItem('userinfo')).id,   // 二维码内容
+              text: configUrl.wxUrl+'html/index.html?orgId='+JSON.parse(localStorage.getItem('userinfo')).id,   // 二维码内容
               // render: 'canvas' ,   // 设置渲染方式（有两种方式 table和canvas，默认是canvas）
               // background: '#f0f',   // 背景色
               // foreground: '#ff0'    // 前景色
