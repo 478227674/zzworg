@@ -18,7 +18,7 @@
             {required: true, message: '姓名不能为空'},
           ]"
       >
-        <el-input v-model.string="form.orgName" auto-complete="off"></el-input>
+        <el-input readonly="readonly" v-model.string="form.orgName" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item
         label="机构简单描述"
@@ -95,15 +95,16 @@
         </div>
       </el-form-item>
       <el-form-item
-        label="机构电话"
+        label="电话分号(400-010-9988转)"
         :label-width="formLabelWidth"
         prop="orgTelephone"
+        style="text-align: left"
         :rules="[
             { required: true, message: '电话不能为空'},
           ]"
       >
-        <el-input oninput = "value=value.replace(/[^\d]/g,'')"    v-model.string="form.orgTelephone" auto-complete="off"></el-input>
-
+        <el-input style="width: 200px;" readonly="readonly" oninput = "value=value.replace(/[^\d]/g,'')"    v-model.string="form.orgTelephone" auto-complete="off"></el-input>
+        <el-button type="primary" @click="getPhoneNum">获取分机号</el-button>
       </el-form-item>
       <el-form-item
         label="校区"
@@ -255,6 +256,7 @@
         cityId:null,
         areaList:[],
         areaId:'',
+        orgId:null,
       }
     },
     components: {
@@ -292,8 +294,9 @@
     },
     created:function () {
       this.provinceList = citydata; //把城市列表放入vue实例化中
+      this.orgId = JSON.parse(localStorage.getItem('userinfo')).id
       //初始化机构信息
-      this.http.post('/orgInfo/queryOrgInfo', {orgId:JSON.parse(localStorage.getItem('userinfo')).id}).then(res=>{
+      this.http.post('/orgInfo/queryOrgInfo', {orgId:this.orgId}).then(res=>{
         if(res.code == 0){
           this.apiurl = this.uplodUrl + '/file/upload';
           if(res.data.orgCampus){
@@ -337,6 +340,14 @@
       })
     },
     methods:{
+      //获取分机号
+      getPhoneNum(){
+        this.http.post('/orgInfo/queryOrgInfoPhone', {orgId:this.orgId}).then(res=>{
+          if(res.code == 0){
+            this.form.orgTelephone = res.data;
+          }
+        })
+      },
         //机构图
       uploadImg(data){
         this.$uploadImg(data).then(res=>{

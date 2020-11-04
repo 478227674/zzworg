@@ -28,8 +28,8 @@ export default new Router({
     {
       path: '/home',
       component: Home,
-        redirect: '/home/workPlace',
-        children: [
+      redirect: '/home/workPlace',
+      children: [
         {
           path: 'workPlace',
           component: workPlace,
@@ -55,26 +55,26 @@ export default new Router({
           component: resolve => require(['@/components/menu/goodslist'], resolve),
           name: '产品管理'
         },
-          {
-            path: 'orderlist',
-            component: resolve => require(['@/components/menu/orderlist'], resolve),
-            name: '订单列表'
-          },
-          {
-            path: 'newslist',
-            component: resolve => require(['@/components/menu/news/newslist'], resolve),
-            name: '资讯管理'
-          },
+        {
+          path: 'orderlist',
+          component: resolve => require(['@/components/menu/orderlist'], resolve),
+          name: '订单列表'
+        },
+        {
+          path: 'newslist',
+          component: resolve => require(['@/components/menu/news/newslist'], resolve),
+          name: '资讯管理'
+        },
         {
           path: 'goodsactive',
           component: resolve => require(['@/components/menu/goodsactive'], resolve),
           name: '优惠活动'
         },
-          {
-            path: 'special',
-            component: resolve => require(['@/components/menu/special'], resolve),
-            name: '特价产品'
-          },
+        {
+          path: 'special',
+          component: resolve => require(['@/components/menu/special'], resolve),
+          name: '特价产品'
+        },
         {
           path: 'price_competition',
           component: resolve => require(['@/components/menu/price_competition'], resolve),
@@ -98,83 +98,93 @@ export default new Router({
         {
           path: 'orgswiper',
           component: resolve => require(['@/components/menu/orgswiper'], resolve),
-          name:'机构轮播图'
+          name: '机构轮播图'
         },
         {
-          path:'chatuserlist',
-          component: resolve =>require(['@/components/menu/chatuserlist'], resolve),
-          name:'坐席管理'
+          path: 'chatuserlist',
+          component: resolve => require(['@/components/menu/chatuserlist'], resolve),
+          name: '坐席管理'
         },
         {
-          path:'freelist',
-          component: resolve =>require(['@/components/menu/freelist'], resolve),
-          name:'试听列表'
+          path: 'freelist',
+          component: resolve => require(['@/components/menu/freelist'], resolve),
+          name: '试听列表'
         },
-          {
-            path:'recomtoindex',
-            component: resolve =>require(['@/components/menu/recomtoindex'], resolve),
-            name:'推荐管理'
-          },
-          {
-            path:'message',
-            component: resolve =>require(['@/components/menu/message'], resolve),
-            name:'动态消息管理'
-          },
-          {
-            path:'orgorder',
-            component: resolve =>require(['@/components/menu/order/orgorder'], resolve),
-            name:'机构订单'
-          },
-          {
-            path:'filetype',
-            component: resolve =>require(['@/components/menu/download/filetype'], resolve),
-            name:'资料类型'
-          },
-          {
-            path:'filelist',
-            component: resolve =>require(['@/components/menu/download/filelist'], resolve),
-            name:'资料管理'
-          },
-          {
-            path:'grouporderlist',
-            component: resolve =>require(['@/components/menu/grouporder/grouporderlist'], resolve),
-            name:'拼团列表'
-          },
-          {
-            path:'refundgrouporder',
-            component: resolve =>require(['@/components/menu/grouporder/refundgrouporder'], resolve),
-            name:'拼团退款列表'
-          },
-          {
-            path: 'videos',
-            component: resolve => require(['@/components/menu/videos/videos'], resolve),
-            name: '阶段管理'
-          },
-          {
-            path: 'schooltypes',
-            component: resolve => require(['@/components/menu/sys/schooltypes'], resolve),
-            name: '营业范围'
-          },
-          {
-            path: 'procollect',
-            component: resolve => require(['@/components/menu/sys/procollect'], resolve),
-            name: '查看课程收藏'
-          },
-          {
-            path: 'orgcollect',
-            component: resolve => require(['@/components/menu/sys/orgcollect'], resolve),
-            name: '查看机构收藏'
-          },
-          {
-            path: 'audtionuser',
-            component: resolve => require(['@/components/menu/sys/audtionuser'], resolve),
-            name: '预约试听列表'
-          },
-          {
-            path: 'ordersys',
-            component: resolve => require(['@/components/menu/sys/ordersys'], resolve),
-            name: '订单系统'
-          },
+        {
+          path: 'recomtoindex',
+          component: resolve => require(['@/components/menu/recomtoindex'], resolve),
+          name: '推荐管理'
+        },
+        {
+          path: 'message',
+          component: resolve => require(['@/components/menu/message'], resolve),
+          name: '动态消息管理'
+        },
+        {
+          path: 'orgorder',
+          component: resolve => require(['@/components/menu/order/orgorder'], resolve),
+          name: '机构订单'
+        },
+        {
+          path: 'filetype',
+          component: resolve => require(['@/components/menu/download/filetype'], resolve),
+          name: '资料类型'
+        },
+        {
+          path: 'filelist',
+          component: resolve => require(['@/components/menu/download/filelist'], resolve),
+          name: '资料管理'
+        },
+        {
+          path: 'grouporderlist',
+          component: resolve => require(['@/components/menu/grouporder/grouporderlist'], resolve),
+          name: '拼团列表'
+        },
+        {
+          path: 'refundgrouporder',
+          component: resolve => require(['@/components/menu/grouporder/refundgrouporder'], resolve),
+          name: '拼团退款列表'
+        },
+        {
+          path: 'videos',
+          component: resolve => require(['@/components/menu/videos/videos'], resolve),
+          name: '阶段管理'
+        },
+        {
+          path: 'schooltypes',
+          component: resolve => require(['@/components/menu/sys/schooltypes'], resolve),
+          name: '营业范围'
+        },
+        {
+          path: 'procollect',
+          component: resolve => require(['@/components/menu/sys/procollect'], resolve),
+          name: '查看课程收藏'
+        },
+        {
+          path: 'orgcollect',
+          component: resolve => require(['@/components/menu/sys/orgcollect'], resolve),
+          name: '查看机构收藏'
+        },
+        {
+          path: 'audtionuser',
+          component: resolve => require(['@/components/menu/sys/audtionuser'], resolve),
+          name: '预约试听列表'
+        },
+        {
+          path: 'ordersys',
+          component: resolve => require(['@/components/menu/sys/ordersys'], resolve),
+          name: '订单系统'
+        },
+        {
+          path: 'money_orders',
+          component: resolve => require(['@/components/menu/sys/money_orders'], resolve),
+          name: '账号余额'
+        },
+        {
+          path: 'enterprise',
+          component: resolve => require(['@/components/menu/sys/enterprise'], resolve),
+          name: '企业认证'
+        },
       ]
     }
   ]

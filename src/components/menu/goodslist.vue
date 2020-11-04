@@ -261,26 +261,7 @@
                 {{item.className}}
               </el-option>
             </el-select>
-            <!--<el-select v-model="guigeObj.teachId" @change="getGoodsId" placeholder="请选择形式" >-->
-            <!--<el-option-->
-            <!--v-for="item in teachType"-->
-            <!--:key="item.teachName"-->
-            <!--:label="item.teachName"-->
-            <!--:value="item.teachId"-->
-            <!--&gt;-->
-            <!--</el-option>-->
-            <!--</el-select>-->
             <el-input style="width:120px;" placeholder="请填写价格"  oninput = "value=value.replace(/[^\d.]/g,'')"   v-model.number="guigeObj.productPrice" auto-complete="off"></el-input>
-
-            <el-date-picker
-              v-model="guigeObj.createTime1"
-              type="datetime"
-              size="large"
-              placeholder="选择开课时间"
-              :editable="false"
-              :picker-options="pickerOptions"
-            >
-            </el-date-picker>
             <el-input style="width:180px;" placeholder="课时数量"  oninput = "value=value.replace(/[^\d.]/g,'')"  v-model.number="guigeObj.classTime" auto-complete="off"></el-input>
             <el-date-picker
               v-model="guigeObj.endTime"
@@ -291,16 +272,29 @@
               :picker-options="pickerOptions"
             >
             </el-date-picker>
-            <el-button type="primary" @click="addGuigeToList">添加</el-button>
-          </template>
-          <template>
-            <div >
-              <el-tag v-for="(item,index) in guigeList" closable @close="deleteGuigeItem(item)">
-                规格{{index+1}}：{{item.className}} {{item.teachName}} ￥{{item.productPrice}}  {{item.createTime1}}
-              </el-tag>
-            </div>
           </template>
         </el-form-item>
+        <el-form-item
+          label="开课时间是否实时"
+          :label-width="formLabelWidth"
+          prop="guige"
+        >
+          <template>
+            <el-radio v-model="form.isTrueTime" label="1">是</el-radio>
+            <el-radio v-model="form.isTrueTime" label="0">否</el-radio>
+            <el-date-picker
+              v-model="guigeObj.createTime1"
+              type="datetime"
+              size="large"
+              placeholder="选择开课时间"
+              :editable="false"
+              :picker-options="pickerOptions"
+              v-show="form.isTrueTime == 0"
+            >
+            </el-date-picker>
+          </template>
+        </el-form-item>
+
         <el-form-item
           label="是否直播"
           :label-width="formLabelWidth"
@@ -372,16 +366,16 @@
 <!--            </el-option>-->
 <!--          </el-select>-->
 <!--        </el-form-item>-->
-        <el-form-item label="所属学科" :label-width="formLabelWidth">
-          <el-select v-model="editForm.productSale.subjectIds" @change="selectChange" multiple placeholder="请选择">
-            <el-option
-              v-for="item in subjectList1"
-              :key="item.subjectId"
-              :label="item.subjectName"
-              :value="item.subjectId">
-            </el-option>
-          </el-select>
-        </el-form-item>
+<!--        <el-form-item label="所属学科" :label-width="formLabelWidth">-->
+<!--          <el-select v-model="editForm.productSale.subjectIds" @change="selectChange" multiple placeholder="请选择">-->
+<!--            <el-option-->
+<!--              v-for="item in subjectList1"-->
+<!--              :key="item.subjectId"-->
+<!--              :label="item.subjectName"-->
+<!--              :value="item.subjectId">-->
+<!--            </el-option>-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
 
         <el-form-item
           label="课程简单描述"
@@ -508,26 +502,7 @@
                 {{item.className}}
               </el-option>
             </el-select>
-            <!--<el-select v-model="guigeObj.teachId" @change="getGoodsId" placeholder="请选择形式" >-->
-            <!--<el-option-->
-            <!--v-for="item in teachType"-->
-            <!--:key="item.teachName"-->
-            <!--:label="item.teachName"-->
-            <!--:value="item.teachId"-->
-            <!--&gt;-->
-            <!--</el-option>-->
-            <!--</el-select>-->
             <el-input style="width:120px;" placeholder="请填写价格"  oninput = "value=value.replace(/[^\d.]/g,'')"   v-model.number="guigeObj.productPrice" auto-complete="off"></el-input>
-
-            <el-date-picker
-              v-model="guigeObj.createTime1"
-              type="datetime"
-              size="large"
-              placeholder="选择开课时间"
-              :editable="false"
-              :picker-options="pickerOptions"
-            >
-            </el-date-picker>
             <el-input style="width:120px;" placeholder="上课时段"    v-model.number="guigeObj.classTime" auto-complete="off"></el-input>
             <el-date-picker
               v-model="guigeObj.endTime"
@@ -538,18 +513,28 @@
               :picker-options="pickerOptions"
             >
             </el-date-picker>
-            <el-button type="primary" @click="addGuigeToList">添加</el-button>
-          </template>
-          <template>
-            <div >
-              <el-tag v-for="(item,index) in guigeList" closable @close="deleteGuigeItem(item)">
-                规格{{index+1}}：{{item.className}} {{item.teachName}} ￥{{item.productPrice}}  {{item.createTime1}}
-              </el-tag>
-            </div>
           </template>
         </el-form-item>
-
-
+        <el-form-item
+          label="开课时间"
+          :label-width="formLabelWidth"
+          prop="guige"
+        >
+          <template>
+            <el-radio v-model="editForm.isTrueTime" label="1">是</el-radio>
+            <el-radio v-model="editForm.isTrueTime" label="0">否</el-radio>
+            <el-date-picker
+              v-model="guigeObj.createTime1"
+              type="datetime"
+              size="large"
+              placeholder="选择开课时间"
+              :editable="false"
+              :picker-options="pickerOptions"
+              v-show="editForm.isTrueTime == 0"
+            >
+            </el-date-picker>
+          </template>
+        </el-form-item>
         <el-form-item
           label="是否上架"
           :label-width="formLabelWidth"
@@ -561,7 +546,6 @@
             inactive-color="#dcdfe6">
           </el-switch>
         </el-form-item>
-
         <el-form-item
           label="是否直播"
           :label-width="formLabelWidth"
@@ -639,6 +623,7 @@
         dialogVisible: false,
         orgId:JSON.parse(localStorage.getItem('userinfo')).id,
         form: {
+          isTrueTime:'0',
           alSaleId:null,
           is_discount:'0',
           onLive:null,
@@ -692,6 +677,7 @@
 
 
         editForm:{
+          isTrueTime:'0',
           is_discount:'',
           onLive:true,
           memberIds:[4],
@@ -756,7 +742,306 @@
       this.initPageData();
     },
     methods:{
+      //编辑
+      editGoods(data){
+        var _this = this;
+        this.http.post('/orgProduct/queryProductInfo',{productId:data.row.productId}).then(res=>{
+          if(res.code == 0){
+            this.dialogEditVisible = true;
+            let obj = {};
+            Object.assign(obj,res.data)
+            this.editForm = obj;
+            this.$set(_this.editForm,'isCoin', res.data.productDetail.isCoin.toString())
+            this.$set(_this.editForm,'isCoupon', res.data.productDetail.isCoupon.toString())
+            this.$set(_this.editForm,'isCommission', res.data.productDetail.isCommission.toString())
+            this.editForm.productImage = res.data.attachment.attachmentId;
+            this.editForm.productImg = res.data.attachment.fileUrl;
+            this.editForm.productId = data.row.productId;
+            this.editForm.coinLimit = res.data.productDetail.coinLimit;
+            this.editForm.coinLimit = res.data.productDetail.coinLimit;
+            this.editForm.productIntro = res.data.productIntro;
+            if(res.data.productDetail.isCommission == 1){
+              this.editForm.commissionRebate = res.data.productDetail.commissionRebate;
+            }
+            this.editForm.sortId =  res.data.sortId;
+            this.editForm.isShelves = res.data.isShelves == 0 ? false : true;
+            this.editForm.onLive = res.data.onLive == 0 ? false : true;
+            // this.guigeList = res.data.rules;
+            this.guigeObj = res.data.rules[0]
+            // for(var i=0;i<this.guigeList.length;i++){
+            //   if(this.guigeList[i]){
+            //     this.guigeList[i].createTime1 = this.guigeList[i].cTimeStr;
+            //   }
+            // }
+            this.editForm.imgList= [];
+            this.editForm.imageList = [];
+            for(var i=0;i<res.data.imageList.length;i++){
+              this.editForm.imgList.push(res.data.imageList[i].attachment.fileUrl) //显示列表
+              this.editForm.imageList.push({ //post给后台的数组
+                imageId:res.data.imageList[i].imageId,
+                imageType:1,
+                cycleValue:'',
+                url:res.data.imageList[i].attachment.fileUrl
+              })
+            }
+            // var memberIds = res.data.productSale.memberIds || [];
+            var subjectIds = JSON.parse(res.data.productSale.subjectIds) || [];
+            // _this.editForm.memberIds = memberIds
+            _this.editForm.productSale.subjectIds = subjectIds
+          }
+        })
 
+      },
+      submitEditData(){
+        if(!this.editForm.productName){
+          this.$errorMessage('请填写课程标题')
+          return;
+        }
+        if(!this.editForm.sortId){
+          this.$errorMessage('请选择课程分类')
+          return;
+        }
+
+        if(!this.editForm.productIntro ){
+          this.$errorMessage('请填写课程简单描述')
+          return;
+        }
+        if(this.editForm.productIntro && this.editForm.productIntro.length>50){
+          this.$errorMessage('简单描述不可超过50字')
+          return;
+        }
+        if(!this.editForm.productDesc){
+          this.$errorMessage('请填写课程详细描述')
+          return;
+        }
+        if(!this.editForm.productImage){
+          this.$errorMessage('请上传课程图片')
+          return;
+        }
+        if(this.editForm.isCoin == 1){
+          if(this.editForm.coinLimit%10 != 0 ){
+            this.$errorMessage('元儒币上限数额必须是10的倍数')
+            return;
+          }
+        }
+        if(this.editForm.browseNum>10000){
+          this.$errorMessage('浏览次数初始不能大于10000')
+          return;
+        }
+        if(this.editForm.purchaseNum>1000){
+          this.$errorMessage('购买次数初始不能大于1000')
+          return;
+        }
+//        for(var i=0;i<this.guigeList.length;i++){
+//            if(this.guigeList[i].cTimeStr){
+//              this.guigeList[i].createTime = new Date(this.guigeList[i].cTimeStr.toString()).getTime()
+//            }else{
+//
+//            }
+//        }
+
+        if(!this.guigeObj.classId){
+          this.$errorMessage('请选择规格')
+          return;
+        }
+        // if(!this.guigeObj.teachId){
+        //   this.$errorMessage('请选择形式')
+        //   return;
+        // }
+        if(this.guigeObj.productPrice<0){
+          this.$errorMessage('请填写价格')
+          return;
+        }
+        if(this.form.isTrueTime == 0){
+          if(!this.guigeObj.createTime1){
+            this.$errorMessage('请选择开课时间')
+            return;
+          }
+          this.guigeObj.createTime = new Date(this.guigeObj.createTime1.toString()).getTime()
+        }else{
+          this.guigeObj.createTime = ''
+        }
+        if(!this.guigeObj.classTime){
+          this.$errorMessage('请填写上课时段')
+          return;
+        }
+        if(!this.guigeObj.endTime){
+          this.$errorMessage('请选择结课时间')
+          return;
+        }
+        this.guigeObj.className = this.classType.find((item)=>{
+          return item.classId === this.guigeObj.classId;
+        }).className;
+        this.guigeList.push(this.guigeObj); //所以深拷贝一个对象再次添加 不会影响this.guigeObj
+
+        this.editForm.rules = this.guigeList;
+        if(this.editForm.isShelves){
+          this.editForm.isShelves = 1;
+        }else{
+          this.editForm.isShelves = 0;
+        }
+        if(this.editForm.onLive){
+          this.editForm.onLive = 1;
+        }else{
+          this.editForm.onLive = 0;
+        }
+        this.http.post('/orgProduct/updateOrDeleteProduct',this.editForm).then(res=>{
+          if(res.code == 0){
+            this.$successMessage('修改成功')
+            this.dialogEditVisible = false;
+            this.getGoodsList();
+
+          }
+        })
+      },
+      //新增课程方法
+      submitData(){
+        this.guigeList = [];
+        if(!this.form.productName){
+          this.$errorMessage('请填写课程标题')
+          return;
+        }
+
+        if(!this.form.sortId){
+          this.$errorMessage('请选择课程分类')
+          return;
+        }
+        if(!this.form.productIntro ){
+          this.$errorMessage('请填写课程简单描述')
+          return;
+        }
+        if(this.form.productIntro && this.form.productIntro.length>50){
+          this.$errorMessage('简单描述不可超过50字')
+          return;
+        }
+        if(!this.form.productDesc){
+          this.$errorMessage('请填写课程详细描述')
+          return;
+        }
+        if(!this.form.productImage){
+          this.$errorMessage('请上传课程图片')
+          return;
+        }
+        if(this.form.isCommission==1){
+          if(!this.form.commissionRebate || this.form.commissionRebate<=0){
+            this.$errorMessage('请填写正确的佣金金额')
+            return;
+          }
+        }
+        if(this.form.isCoin == 1){
+          if(this.form.coinLimit%10 != 0 ){
+            this.$errorMessage('元儒币上限数额必须是10的倍数')
+            return;
+          }
+        }
+        if(this.form.browseNum>10000){
+          this.$errorMessage('浏览次数初始不能大于10000')
+          return;
+        }
+        if(this.form.purchaseNum>1000){
+          this.$errorMessage('购买次数初始不能大于1000')
+          return;
+        }
+
+        if(!this.guigeObj.classId){
+          this.$errorMessage('请选择规格')
+          return;
+        }
+        // if(!this.guigeObj.teachId){
+        //   this.$errorMessage('请选择形式')
+        //   return;
+        // }
+        if(this.guigeObj.productPrice<0){
+          this.$errorMessage('请填写价格')
+          return;
+        }
+        if(this.form.isTrueTime == 0){
+          if(!this.guigeObj.createTime1){
+            this.$errorMessage('请选择开课时间')
+            return;
+          }
+          this.guigeObj.createTime = new Date(this.guigeObj.createTime1.toString()).getTime()
+        }else{
+          this.guigeObj.createTime = ''
+        }
+        if(!this.guigeObj.classTime){
+          this.$errorMessage('请填写上课时段')
+          return;
+        }
+        if(!this.guigeObj.endTime){
+          this.$errorMessage('请选择结课时间')
+          return;
+        }
+        this.guigeObj.className = this.classType.find((item)=>{
+          return item.classId === this.guigeObj.classId;
+        }).className;
+        this.guigeList.push(this.guigeObj); //所以深拷贝一个对象再次添加 不会影响this.guigeObj
+        if(this.form.onLive){
+          this.form.onLive = 1;
+        }else{
+          this.form.onLive = 0;
+        }
+        this.form.rules = this.guigeList;
+        this.http.post('/orgProduct/saveProduct',this.form).then(res=>{
+          if(res.code == 0){
+            this.$successMessage('添加成功')
+            Object.assign(this.$data, this.$options.data())
+            this.getClassTypeList();
+            this.getGuiGeList();
+            this.dialogFormVisible = false;
+            this.getGoodsList();
+          }
+        })
+      },
+      //添加规格事件
+      addGuigeToList(){
+//          this.guigeObj
+        if(!this.guigeObj.classId){
+          this.$errorMessage('请选择规格')
+          return;
+        }
+        // if(!this.guigeObj.teachId){
+        //   this.$errorMessage('请选择形式')
+        //   return;
+        // }
+        if(this.guigeObj.productPrice<0){
+          this.$errorMessage('请填写价格')
+          return;
+        }
+        if(!this.guigeObj.createTime1){
+          this.$errorMessage('请选择开课时间')
+          return;
+        }
+        if(!this.guigeObj.classTime){
+          this.$errorMessage('请填写上课时段')
+          return;
+        }
+        if(!this.guigeObj.endTime){
+          this.$errorMessage('请选择结课时间')
+          return;
+        }
+        this.guigeObj.createTime = new Date(this.guigeObj.createTime1.toString()).getTime()
+        this.guigeObj.className = this.classType.find((item)=>{
+          return item.classId === this.guigeObj.classId;
+        }).className;
+//        this.guigeObj.teachName = this.teachType.find((item)=>{
+//          return item.teachId === this.guigeObj.teachId;
+//        }).teachName;
+        let obj = {};
+        Object.assign(obj,this.guigeObj);  //直接使用guigeObj为引用类型 添加后再次添加时会影响之前添加的规格
+        this.guigeList.push(obj); //所以深拷贝一个对象再次添加 不会影响this.guigeObj
+        this.guigeObj={
+          classId:null,
+          teachId:2,
+          productPrice:null,
+          createTime:null,
+          createTime1:null,
+          className:'',
+          teachName:'',
+          classTime:'',
+          endTime:''
+        }
+      },
       //搜索产品
       searchProductByType(){
 
@@ -831,55 +1116,7 @@
           }
         })
       },
-      //添加规格事件
-      addGuigeToList(){
-//          this.guigeObj
-        if(!this.guigeObj.classId){
-          this.$errorMessage('请选择规格')
-          return;
-        }
-        if(!this.guigeObj.teachId){
-          this.$errorMessage('请选择形式')
-          return;
-        }
-        if(this.guigeObj.productPrice<0){
-          this.$errorMessage('请填写价格')
-          return;
-        }
-        if(!this.guigeObj.createTime1){
-          this.$errorMessage('请选择开课时间')
-          return;
-        }
-        if(!this.guigeObj.classTime){
-          this.$errorMessage('请填写上课时段')
-          return;
-        }
-        if(!this.guigeObj.endTime){
-          this.$errorMessage('请选择结课时间')
-          return;
-        }
-        this.guigeObj.createTime = new Date(this.guigeObj.createTime1.toString()).getTime()
-        this.guigeObj.className = this.classType.find((item)=>{
-          return item.classId === this.guigeObj.classId;
-        }).className;
-//        this.guigeObj.teachName = this.teachType.find((item)=>{
-//          return item.teachId === this.guigeObj.teachId;
-//        }).teachName;
-        let obj = {};
-        Object.assign(obj,this.guigeObj);  //直接使用guigeObj为引用类型 添加后再次添加时会影响之前添加的规格
-        this.guigeList.push(obj); //所以深拷贝一个对象再次添加 不会影响this.guigeObj
-        this.guigeObj={
-            classId:null,
-            teachId:2,
-            productPrice:null,
-            createTime:null,
-            createTime1:null,
-            className:'',
-            teachName:'',
-            classTime:'',
-            endTime:''
-        }
-      },
+
       //删除规格
       deleteGuigeItem(tag) {
         this.guigeList.splice(this.guigeList.indexOf(tag), 1);
@@ -962,195 +1199,8 @@
         }
 
       },
-      //新增课程方法
-      submitData(){
-        if(!this.form.productName){
-          this.$errorMessage('请填写课程标题')
-          return;
-        }
 
-        if(!this.form.sortId){
-          this.$errorMessage('请选择课程分类')
-          return;
-        }
-        if(!this.form.productIntro ){
-          this.$errorMessage('请填写课程简单描述')
-          return;
-        }
-        if(this.form.productIntro && this.form.productIntro.length>50){
-          this.$errorMessage('简单描述不可超过50字')
-          return;
-        }
-        if(!this.form.productDesc){
-          this.$errorMessage('请填写课程详细描述')
-          return;
-        }
-        if(!this.form.productImage){
-          this.$errorMessage('请上传课程图片')
-          return;
-        }
-        if(this.form.isCommission==1){
-          if(!this.form.commissionRebate || this.form.commissionRebate<=0){
-            this.$errorMessage('请填写正确的佣金金额')
-            return;
-          }
-        }
-        if(this.form.isCoin == 1){
-            if(this.form.coinLimit%10 != 0 ){
-              this.$errorMessage('元儒币上限数额必须是10的倍数')
-              return;
-            }
-        }
-        if(this.guigeList.length==0){
-          this.$errorMessage('请至少添加一个商品规格')
-          return;
-        }
-        if(this.form.browseNum>10000){
-          this.$errorMessage('浏览次数初始不能大于10000')
-          return;
-        }
-        if(this.form.purchaseNum>1000){
-          this.$errorMessage('购买次数初始不能大于1000')
-          return;
-        }
-        if(this.form.onLive){
-          this.form.onLive = 1;
-        }else{
-          this.form.onLive = 0;
-        }
-        this.form.rules = this.guigeList;
-        this.http.post('/orgProduct/saveProduct',this.form).then(res=>{
-          if(res.code == 0){
-            this.$successMessage('添加成功')
-            Object.assign(this.$data, this.$options.data())
-            this.getClassTypeList();
-            this.getGuiGeList();
-            this.dialogFormVisible = false;
-            this.getGoodsList();
-          }
-        })
-      },
 
-      submitEditData(){
-        if(!this.editForm.productName){
-          this.$errorMessage('请填写课程标题')
-          return;
-        }
-        if(!this.editForm.sortId){
-          this.$errorMessage('请选择课程分类')
-          return;
-        }
-
-        if(!this.editForm.productIntro ){
-          this.$errorMessage('请填写课程简单描述')
-          return;
-        }
-        if(this.editForm.productIntro && this.editForm.productIntro.length>50){
-          this.$errorMessage('简单描述不可超过50字')
-          return;
-        }
-        if(!this.editForm.productDesc){
-          this.$errorMessage('请填写课程详细描述')
-          return;
-        }
-        if(!this.editForm.productImage){
-          this.$errorMessage('请上传课程图片')
-          return;
-        }
-        if(this.editForm.isCoin == 1){
-          if(this.editForm.coinLimit%10 != 0 ){
-            this.$errorMessage('元儒币上限数额必须是10的倍数')
-            return;
-          }
-        }
-        if(this.guigeList.length==0){
-          this.$errorMessage('请至少添加一个商品规格')
-          return;
-        }
-        if(this.editForm.browseNum>10000){
-          this.$errorMessage('浏览次数初始不能大于10000')
-          return;
-        }
-        if(this.editForm.purchaseNum>1000){
-          this.$errorMessage('购买次数初始不能大于1000')
-          return;
-        }
-//        for(var i=0;i<this.guigeList.length;i++){
-//            if(this.guigeList[i].cTimeStr){
-//              this.guigeList[i].createTime = new Date(this.guigeList[i].cTimeStr.toString()).getTime()
-//            }else{
-//
-//            }
-//        }
-        this.editForm.rules = this.guigeList;
-        if(this.editForm.isShelves){
-          this.editForm.isShelves = 1;
-        }else{
-          this.editForm.isShelves = 0;
-        }
-        if(this.editForm.onLive){
-          this.editForm.onLive = 1;
-        }else{
-          this.editForm.onLive = 0;
-        }
-        this.http.post('/orgProduct/updateOrDeleteProduct',this.editForm).then(res=>{
-          if(res.code == 0){
-            this.$successMessage('修改成功')
-            this.dialogEditVisible = false;
-            this.getGoodsList();
-
-          }
-        })
-      },
-      //编辑
-      editGoods(data){
-        var _this = this;
-        this.http.post('/orgProduct/queryProductInfo',{productId:data.row.productId}).then(res=>{
-          if(res.code == 0){
-            this.dialogEditVisible = true;
-            let obj = {};
-            Object.assign(obj,res.data)
-            this.editForm = obj;
-            this.$set(_this.editForm,'isCoin', res.data.productDetail.isCoin.toString())
-            this.$set(_this.editForm,'isCoupon', res.data.productDetail.isCoupon.toString())
-            this.$set(_this.editForm,'isCommission', res.data.productDetail.isCommission.toString())
-            this.editForm.productImage = res.data.attachment.attachmentId;
-            this.editForm.productImg = res.data.attachment.fileUrl;
-            this.editForm.productId = data.row.productId;
-            this.editForm.coinLimit = res.data.productDetail.coinLimit;
-            this.editForm.coinLimit = res.data.productDetail.coinLimit;
-            this.editForm.productIntro = res.data.productIntro;
-            if(res.data.productDetail.isCommission == 1){
-              this.editForm.commissionRebate = res.data.productDetail.commissionRebate;
-            }
-            this.editForm.sortId =  res.data.sortId;
-            this.editForm.isShelves = res.data.isShelves == 0 ? false : true;
-            this.editForm.onLive = res.data.onLive == 0 ? false : true;
-            this.guigeList = res.data.rules;
-            for(var i=0;i<this.guigeList.length;i++){
-              if(this.guigeList[i]){
-                this.guigeList[i].createTime1 = this.guigeList[i].cTimeStr;
-              }
-            }
-            this.editForm.imgList= [];
-            this.editForm.imageList = [];
-            for(var i=0;i<res.data.imageList.length;i++){
-              this.editForm.imgList.push(res.data.imageList[i].attachment.fileUrl) //显示列表
-              this.editForm.imageList.push({ //post给后台的数组
-                imageId:res.data.imageList[i].imageId,
-                imageType:1,
-                cycleValue:'',
-                url:res.data.imageList[i].attachment.fileUrl
-              })
-            }
-            // var memberIds = res.data.productSale.memberIds || [];
-            var subjectIds = JSON.parse(res.data.productSale.subjectIds) || [];
-            // _this.editForm.memberIds = memberIds
-            _this.editForm.productSale.subjectIds = subjectIds
-          }
-        })
-
-      },
       selectChange(){
         this.$forceUpdate();
       },

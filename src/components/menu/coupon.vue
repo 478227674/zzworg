@@ -53,7 +53,7 @@
         >
         <template slot-scope="scope">
           <el-button @click="handleClick(scope)" type="text" size="small">删除</el-button>
-          <el-button @click="sendCoupon(scope)" type="text" size="small">赠送优惠券</el-button>
+<!--          <el-button @click="sendCoupon(scope)" type="text" size="small">赠送优惠券</el-button>-->
           <el-button @click="createCouponUrl(scope.row)" type="text" size="small">生成链接</el-button>
           <!--<el-button type="text" size="small">编辑</el-button>-->
         </template>

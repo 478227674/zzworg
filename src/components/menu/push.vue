@@ -39,25 +39,25 @@
         >
           <el-input v-model.string="form.userPhone" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item
-          label="选择优惠券"
-          prop="date"
-          :label-width="formLabelWidth"
-        >
-          <el-select
-            v-model="form.couponId"
-            multiple
-            collapse-tags
-            style="margin-left: 20px;"
-            placeholder="请选择">
-            <el-option
-              v-for="item in couponList"
-              :key="item.couponId"
-              :label="item.couponTitle"
-              :value="item.couponId">
-            </el-option>
-          </el-select>
-        </el-form-item>
+<!--        <el-form-item-->
+<!--          label="选择优惠券"-->
+<!--          prop="date"-->
+<!--          :label-width="formLabelWidth"-->
+<!--        >-->
+<!--          <el-select-->
+<!--            v-model="form.couponId"-->
+<!--            multiple-->
+<!--            collapse-tags-->
+<!--            style="margin-left: 20px;"-->
+<!--            placeholder="请选择">-->
+<!--            <el-option-->
+<!--              v-for="item in couponList"-->
+<!--              :key="item.couponId"-->
+<!--              :label="item.couponTitle"-->
+<!--              :value="item.couponId">-->
+<!--            </el-option>-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
         <!--<el-select-->
         <!--v-model="form.userIds"-->
         <!--multiple-->

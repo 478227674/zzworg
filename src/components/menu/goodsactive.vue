@@ -378,15 +378,6 @@
               <!--</el-option>-->
             <!--</el-select>-->
 
-            <el-date-picker
-              v-model="guigeObj.createTime1"
-              type="datetime"
-              size="large"
-              placeholder="选择开课时间"
-              :editable="false"
-                :picker-options="pickerOptions"
-            >
-            </el-date-picker>
             <el-input style="width:180px;" placeholder="课时数量"  oninput = "value=value.replace(/[^\d.]/g,'')"  v-model.number="guigeObj.classTime" auto-complete="off"></el-input>
             <el-date-picker
               v-model="guigeObj.endTime"
@@ -397,14 +388,26 @@
               :picker-options="pickerOptions"
             >
             </el-date-picker>
-            <el-button type="primary" @click="addGuigeToList">添加</el-button>
           </template>
+        </el-form-item>
+        <el-form-item
+          label="开课时间"
+          :label-width="formLabelWidth"
+          prop="guige"
+        >
           <template>
-            <div >
-              <el-tag v-for="(item,index) in guigeList" closable @close="deleteGuigeItem(item)">
-                规格{{index+1}}：{{item.className}} {{item.teachName}} {{item.createTime1}}
-              </el-tag>
-            </div>
+            <el-radio v-model="form.isTrueTime" label="1">是</el-radio>
+            <el-radio v-model="form.isTrueTime" label="0">否</el-radio>
+            <el-date-picker
+              v-model="guigeObj.createTime1"
+              type="datetime"
+              size="large"
+              placeholder="选择开课时间"
+              :editable="false"
+              :picker-options="pickerOptions"
+              v-show="form.isTrueTime == 0"
+            >
+            </el-date-picker>
           </template>
         </el-form-item>
         <el-form-item
@@ -711,6 +714,7 @@
         dialogVisible: false,
         orgId:JSON.parse(localStorage.getItem('userinfo')).id,
         form: {
+          isTrueTime:'0',
           alSaleId:null,
           onLive:null,
           memberIds:[4],
@@ -1226,10 +1230,6 @@
             return;
           }
         }
-        if(this.guigeList.length==0){
-          this.$errorMessage('请至少添加一个商品规格')
-          return;
-        }
         if(this.form.browseNum>10000){
           this.$errorMessage('浏览次数初始不能大于10000')
           return;
@@ -1238,6 +1238,38 @@
           this.$errorMessage('购买次数初始不能大于1000')
           return;
         }
+
+
+        if(!this.guigeObj.classId){
+          this.$errorMessage('请选择规格')
+          return;
+        }
+        if(!this.guigeObj.teachId){
+          this.$errorMessage('请选择形式')
+          return;
+        }
+        if(this.form.isTrueTime == 0){
+          if(!this.guigeObj.createTime1){
+            this.$errorMessage('请选择开课时间')
+            return;
+          }
+          this.guigeObj.createTime = new Date(this.guigeObj.createTime1.toString()).getTime()
+        }else{
+          this.guigeObj.createTime = ''
+        }
+
+        if(!this.guigeObj.classTime){
+          this.$errorMessage('请填写上课时段')
+          return;
+        }
+        if(!this.guigeObj.endTime){
+          this.$errorMessage('请选择结课时间')
+          return;
+        }
+        this.guigeObj.className = this.classType.find((item)=>{
+          return item.classId === this.guigeObj.classId;
+        }).className;
+        this.guigeList.push(this.guigeObj); //所以深拷贝一个对象再次添加 不会影响this.guigeObj
         this.form.rules = this.guigeList;
         if(this.form.onLive){
           this.form.onLive = 1;
