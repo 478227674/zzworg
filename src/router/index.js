@@ -185,6 +185,16 @@ export default new Router({
           component: resolve => require(['@/components/menu/sys/enterprise'], resolve),
           name: '企业认证'
         },
+        {
+          path: 'service',
+          component: resolve => require(['@/components/menu/phone/service'], resolve),
+          name: '400坐席'
+        },
+        {
+          path: 'phone_his',
+          component: resolve => require(['@/components/menu/phone/phone_his'], resolve),
+          name: '通话记录'
+        },
       ]
     }
   ]

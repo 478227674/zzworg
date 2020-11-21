@@ -85,12 +85,20 @@
                 </el-menu-item>
               </router-link>
             </template>
+<!--            <template>-->
+<!--              <router-link to="/home/recomtoindex">-->
+<!--                <el-menu-item index="/home/recomtoindex">-->
+<!--                  <i class="el-icon-tickets"></i><span slot="title">推荐管理</span>-->
+<!--                </el-menu-item>-->
+<!--              </router-link>-->
+<!--            </template>-->
           </el-submenu>
           <el-submenu index="103">
             <template slot="title">
               <i class="el-icon-circle-plus-outline"></i>
               <span>内容发布</span>
             </template>
+
             <template>
               <router-link to="/home/newslist" >
                 <el-menu-item index="/home/newslist" >
@@ -164,6 +172,21 @@
             <template slot="title">
               <i class="el-icon-s-platform"></i>
               <span>便捷工具</span>
+            </template>
+
+            <template>
+              <router-link to="/home/service" >
+                <el-menu-item index="/home/service" >
+                  <i class="el-icon-bell"></i><span slot="title">400坐席</span>
+                </el-menu-item>
+              </router-link>
+            </template>
+            <template>
+              <router-link to="/home/phone_his" >
+                <el-menu-item index="/home/phone_his" >
+                  <i class="el-icon-bell"></i><span slot="title">通话记录</span>
+                </el-menu-item>
+              </router-link>
             </template>
             <template>
               <router-link to="/home/push" >
@@ -295,13 +318,7 @@
 <!--              </el-menu-item>-->
 <!--            </router-link>-->
 <!--          </template>-->
-<!--          <template>-->
-<!--            <router-link to="/home/recomtoindex">-->
-<!--              <el-menu-item index="/home/recomtoindex">-->
-<!--                <i class="el-icon-tickets"></i><span slot="title">推荐管理</span>-->
-<!--              </el-menu-item>-->
-<!--            </router-link>-->
-<!--          </template>-->
+
           <!--<template>-->
           <!--<router-link to="/home/saler" >-->
           <!--<el-menu-item index="/home/saler" >-->

@@ -14,7 +14,7 @@
           <el-button type="text" @click="loginOut">退出登录</el-button>
           <div class="head_userInfo" style="float: right;margin-left: 20px;">
             <!--<div class="userIcon"><img :src="img" alt="user"><span>{{name}}</span></div>-->
-            <div class="userIcon"><span>欢迎您，{{name}}</span></div>
+            <div class="userIcon"><span>欢迎登录：{{userName}}，管理员身份：{{orgName}}</span></div>
           </div>
         </el-col>
       </div>
@@ -30,7 +30,7 @@
         </el-form-item>
         <el-form-item
           label="新密码"
-          :label-width="formLabelWidth"
+          :label-widtrh="formLabelWidth"
         >
           <el-input v-model.string="form.newPassWord" auto-complete="off"></el-input>
         </el-form-item>
@@ -56,7 +56,7 @@
     data(){
       return{
         img:'',
-        name:'',
+        orgName:'',
         changeFlag:false,
         formLabelWidth:'120px',
         form:{
@@ -64,12 +64,14 @@
           newPassWord:'',
           newPassWord2:'',
           id:''
-        }
+        },
+        userName:'',
       }
     },
     created(){
         if(localStorage.getItem('userinfo')){
-          this.name = JSON.parse(localStorage.getItem('userinfo')).userName;
+          this.orgName = JSON.parse(localStorage.getItem('userinfo')).orgUserName;
+          this.userName = JSON.parse(localStorage.getItem('userinfo')).userName;
           this.form.id = JSON.parse(localStorage.getItem('userinfo')).id;
 
         }else{

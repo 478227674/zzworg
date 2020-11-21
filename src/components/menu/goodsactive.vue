@@ -1152,7 +1152,7 @@
       },
       //新增课程方法
       submitData(){
-
+        console.log(this.form)
         if(!this.form.productName){
           this.$errorMessage('请填写课程标题')
           return;
